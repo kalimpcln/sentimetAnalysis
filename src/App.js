@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import TweetForm from './TweetForm';
+import TweetList from './TweetList';
+import './styles.css';
+// import twitterLogo from './twitter-logo.png';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className="header">
+        <img src='https://e7.pngegg.com/pngimages/708/311/png-clipart-twitter-twitter-thumbnail.png' alt="Twitter Logo" className="twitter-logo" />
+        <h1>Twitter</h1>
       </header>
+      <TweetForm />
+      <footer className="footer">
+        Made by <strong>Travel Tone</strong>
+      </footer>
     </div>
   );
 }
