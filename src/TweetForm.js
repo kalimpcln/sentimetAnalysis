@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { FaReply } from 'react-icons/fa';
 
-import TweetList from './TweetList';
-import list from './dataset.json';
 const TweetForm = () => {
     const [tweet, setTweet] = useState('');
     const [reply, setReply] = useState('');
@@ -35,7 +33,7 @@ const TweetForm = () => {
             // Send the tweet to the server
             const replyresponse = await axios.post('replyendpoint', reply);
             // Clear the input field
-            setReplyresponse(replyresponse);
+            setReplyresponse(replyresponse.data);
             setShowReply(false);
         } catch (error) {
             console.error(error);
@@ -65,13 +63,16 @@ const TweetForm = () => {
                         response &&
 
                         <>
-                            <div className='username'>
-                                <img src='https://partners.sio365.com/partner-1513661115.png' alt="Twitter Logo" className="twitter-logo" />
-                                <span>Priceline response</span>
+                            <div className="response">
+                                <div className='username'>
+                                    <img src='https://partners.sio365.com/partner-1513661115.png' alt="Twitter Logo" className="twitter-logo" />
+                                    <span><strong>Priceline response</strong></span>
+                                </div>
+
+
+                                <p>{response}</p>
                             </div>
-
-
-                            <p>{response}</p>
+                            
                             <button onClick={() => setShowReply(true)}>
                                 <FaReply /> Reply
                             </button>
@@ -113,12 +114,14 @@ const TweetForm = () => {
                     {
                         replyresponse &&
                         <>
-                            <div className='username'>
-                                <img src='https://partners.sio365.com/partner-1513661115.png' alt="Twitter Logo" className="twitter-logo" />
-                                <span>Priceline response</span>
-                            </div>
+                            <div className="response">
+                                <div className='username'>
+                                    <img src='https://partners.sio365.com/partner-1513661115.png' alt="Twitter Logo" className="twitter-logo" />
+                                    <span><strong>Priceline response</strong></span>
+                                </div>
 
-                            <p>{replyresponse}</p>
+                                <p>{replyresponse}</p>
+                            </div>
                         </>
                     }
                 </div>

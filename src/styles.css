@@ -5,20 +5,14 @@ body {
     background-color: #f5f8fa;
   }
   
-  .header {
+  .header, .footer {
     background-color: #00acee;
     padding: 10px;
     color: #fff;
     text-align: center;
     display: flex;
+    justify-content: center;
     align-items: center;
-  }
-  
-  .footer {
-    background-color: #f5f8fa;
-    padding: 10px;
-    color: #555;
-    text-align: center;
   }
   
   .tweet-container {
@@ -73,4 +67,18 @@ body {
     font-weight: bold;
   }
   
-  
+  .negativeReview{
+    color: red;
+    padding: 10px;
+  }
+
+  .possitiveReview{
+    color: green;
+    padding: 10px;
+  }
+
+  .response{
+    background-color: darkgray;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
