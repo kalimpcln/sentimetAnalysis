@@ -50,6 +50,7 @@ body {
   
   .response-container {
     margin-top: 10px;
+    padding: 10px;
   }
   
   .twitter-logo {
@@ -66,6 +67,10 @@ body {
 
   .username img{
     border-radius: 50%;
+  }
+
+  .customername{
+    font-weight: bold;
   }
   
   

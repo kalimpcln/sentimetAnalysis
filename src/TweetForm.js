@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import TweetList from './TweetList';
+import { FaReply } from 'react-icons/fa';
 
+import TweetList from './TweetList';
+import list from './dataset.json';
 const TweetForm = () => {
     const [tweet, setTweet] = useState('');
+    const [reply, setReply] = useState('');
     const [response, setResponse] = useState('');
+    const [replyresponse, setReplyresponse] = useState('');
+    const [showReply, setShowReply] = useState(false);
 
     const handleSubmit = async (e) => {
-        console.log('TWEET', tweet);
+
         e.preventDefault();
         try {
             // Send the tweet to the server
@@ -15,19 +20,33 @@ const TweetForm = () => {
                 review: tweet,
                 username: 'Kalim'
             });
-            setResponse(response.data.choices[0].message.content);
+            setResponse(response.data.choices[0].message.content.response);
             // Clear the input field
             setTweet('');
         } catch (error) {
             console.error(error);
         }
+
     };
+
+    const handleReply = async (e) => {
+        e.preventDefault();
+        try {
+            // Send the tweet to the server
+            const replyresponse = await axios.post('replyendpoint', reply);
+            // Clear the input field
+            setReplyresponse(replyresponse);
+            setShowReply(false);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <div className="tweet-container">
             <div className='username'>
                 <img src='https://cdn.icon-icons.com/icons2/589/PNG/256/icontexto-user-web20-twitter_icon-icons.com_55355.png' alt="Twitter Logo" className="twitter-logo" />
-                <span>Random customer</span>
+                <span className='customername'>Random customer</span>
             </div>
 
             <textarea
@@ -39,9 +58,70 @@ const TweetForm = () => {
             <button type="submit" onClick={handleSubmit}>
                 Tweet
             </button>
+
             <div className="response-container">
-                <TweetList response={response} />
-                {/* <TweetList response='We’ve trained a model called ChatGPT which interacts in a conversational way. The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests.'/> */}
+                <div className="tweet-container" >
+                    {
+                        response &&
+
+                        <>
+                            <div className='username'>
+                                <img src='https://partners.sio365.com/partner-1513661115.png' alt="Twitter Logo" className="twitter-logo" />
+                                <span>Priceline response</span>
+                            </div>
+
+
+                            <p>{response}</p>
+                            <button onClick={() => setShowReply(true)}>
+                                <FaReply /> Reply
+                            </button>
+
+                        </>
+
+                    }
+
+                    {
+                        showReply &&
+                        <>
+                            <div className='username'>
+                                <img src='https://cdn.icon-icons.com/icons2/589/PNG/256/icontexto-user-web20-twitter_icon-icons.com_55355.png' alt="Twitter Logo" className="twitter-logo" />
+                                <span className='customername'>Random customer</span>
+                            </div>
+
+                            <textarea
+                                rows={5}
+                                placeholder="Compose your tweet..."
+                                value={reply}
+                                onChange={(e) => setReply(e.target.value)}
+                            />
+                            <button type="submit" onClick={handleReply}>
+                                Tweet
+                            </button>
+                        </>
+                    }
+                    {
+                        !showReply && reply &&
+                        <>
+                            <div className='username'>
+                                <img src='https://cdn.icon-icons.com/icons2/589/PNG/256/icontexto-user-web20-twitter_icon-icons.com_55355.png' alt="Twitter Logo" className="twitter-logo" />
+                                <span className='customername'>Random customer</span>
+                            </div>
+
+                            <p>{reply}</p>
+                        </>
+                    }
+                    {
+                        replyresponse &&
+                        <>
+                            <div className='username'>
+                                <img src='https://partners.sio365.com/partner-1513661115.png' alt="Twitter Logo" className="twitter-logo" />
+                                <span>Priceline response</span>
+                            </div>
+
+                            <p>{replyresponse}</p>
+                        </>
+                    }
+                </div>
             </div>
         </div>
     );
