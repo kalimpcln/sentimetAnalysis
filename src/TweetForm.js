@@ -14,11 +14,12 @@ const TweetForm = () => {
         e.preventDefault();
         try {
             // Send the tweet to the server
-            const response = await axios.post('http://localhost:5000/tweets', {
+            const response = await axios.post('http://localhost:8080/cscentiment/processQuery', {
                 review: tweet,
-                username: 'Kalim'
+                reviewId: 1
             });
-            setResponse(response.data.choices[0].message.content.response);
+            let content = JSON.parse(response.data.choices[0].message.content);
+            setResponse(content.response);
             // Clear the input field
             setTweet('');
         } catch (error) {
@@ -31,7 +32,7 @@ const TweetForm = () => {
         e.preventDefault();
         try {
             // Send the tweet to the server
-            const replyresponse = await axios.post('replyendpoint', reply);
+            const replyresponse = await axios.post('http://localhost:8080/cscentiment/caseCreation', reply);
             // Clear the input field
             setReplyresponse(replyresponse.data);
             setShowReply(false);
